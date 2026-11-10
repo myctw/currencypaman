@@ -2,8 +2,8 @@ name: Update rates
 
 on:
   schedule:
-    # 台灣時間 09:10–15:10 平日每小時一次 (UTC 01:10–07:10)
-    - cron: "10 1-7 * * 1-5"
+    # 每 3 小時一次 (UTC 00:10, 03:10, ...)
+    - cron: "10 */3 * * *"
   workflow_dispatch:
 
 permissions:
