@@ -113,7 +113,10 @@ footer a{color:inherit}
   </div>
 
   <footer>
-    <span>匯率來源:<a href="https://rate.bot.com.tw/xrt" target="_blank" rel="noopener">臺灣銀行</a>(現金匯率),僅供參考。</span>
+    <div>
+      <div id="foot-update">上次更新:—</div>
+      <div id="foot-src">資料來源:<a href="https://rate.bot.com.tw/xrt" target="_blank" rel="noopener">臺灣銀行牌告匯率</a>(現金匯率)。<a id="foot-pub" href="https://app.haotool.org/ratewise/" target="_blank" rel="noopener">資料整理:匯率好工具 RateWise</a>。匯率僅供參考,不保證可依此匯率成交,未含手續費。</div>
+    </div>
     <span>作者:Paman</span>
     <div class="theme" role="group" aria-label="佈景主題">
       <button type="button" data-theme="light" aria-pressed="false">淺色</button>
@@ -181,8 +184,9 @@ async function init(){
     for (const [c, r] of Object.entries(d.rates || {})) if (r.cashBuy && r.cashSell) S.rates[c] = r;
     if (!Object.keys(S.rates).length) throw new Error("empty");
     const t = d.updatedAt ? new Date(d.updatedAt) : null;
-    $("stamp").textContent = t ? "更新於 " + t.toLocaleString("zh-TW", {timeZone:"Asia/Taipei", hour12:false, dateStyle:"medium", timeStyle:"short"}) + "(臺北時間)" : "";
-    if (d.sample) $("stamp").textContent = "測試資料,非真實匯率";
+    const when = t ? t.toLocaleString("zh-TW", {timeZone:"Asia/Taipei", hour12:false, dateStyle:"medium", timeStyle:"short"}) + "(臺北時間)" : "";
+    $("stamp").textContent = t ? "更新於 " + when : "";
+    $("foot-update").textContent = "上次更新:" + (when || "—");
   } catch (e) {
     $("stamp").textContent = "無法取得匯率";
     $("list").innerHTML = '<div class="empty err">目前沒有匯率資料。請到 GitHub 的 Actions 頁面手動執行「Update rates」,再重新整理本頁。</div>';
