@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>多幣別匯率計算機</title>
+<meta name="description" content="輸入一個幣別的金額,同時換算成多個幣別。">
+<script>
+(function(){
+  var t=null; try{t=localStorage.getItem("theme")}catch(e){}
+  if(t!=="light"&&t!=="dark") t=matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light";
+  document.documentElement.dataset.theme=t;
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;900&display=swap" rel="stylesheet">
+<style>
+/* 暗黑風:舊羊皮紙(淺色)/ 黑石與血紅(深色) */
+:root{
+  --bg:#c9bb98; --bg2:#ddd0ae; --panel:#e6dab9; --ink:#22160d; --muted:#6b5a3e;
+  --accent:#7a1710; --accent-ink:#f3e6c4; --gold:#7a5410; --line:#a08a5c; --field:#d8c9a2;
+  --err:#8f1a12; --glow:rgba(60,35,10,.25);
+  --serif:"Noto Serif TC","Songti TC","PMingLiU",serif;
+  --rune:"Cinzel","Noto Serif TC",serif;
+  --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  color-scheme:light;
+}
+:root[data-theme=dark]{
+  --bg:#070605; --bg2:#1d1511; --panel:#14100d; --ink:#d9cfb6; --muted:#8c806a;
+  --accent:#8a1a12; --accent-ink:#f2e4c0; --gold:#c4a35a; --line:#3d3025; --field:#0c0907;
+  --err:#e0584a; --glow:rgba(150,20,10,.25);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;color:var(--ink);font:16px/1.6 var(--sans);min-height:100vh;
+  background:
+    radial-gradient(ellipse at 50% 0%,var(--bg2),var(--bg) 75%) fixed;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:20px 16px 40px}
+header{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 16px;padding:8px 0 20px}
+h1{margin:0;font:900 clamp(1.6rem,4vw,2.3rem)/1.2 var(--serif);letter-spacing:.06em;text-shadow:0 0 22px var(--glow)}
+.stamp{color:var(--muted);font-size:.9rem}
+.grid{display:grid;gap:20px;grid-template-columns:1fr}
+@media (min-width:860px){.grid{grid-template-columns:minmax(340px,5fr) 6fr;align-items:start}.side{position:sticky;top:16px}}
+.card{background:var(--panel);border:1px solid var(--gold);border-radius:3px;box-shadow:inset 0 0 0 4px var(--panel),inset 0 0 0 5px var(--line),inset 0 0 40px rgba(0,0,0,.35),0 10px 40px var(--glow)}
+.side{padding:24px}
+label,.lbl{display:block;font-size:.9rem;color:var(--muted);margin-bottom:4px}
+input,select,button{font:inherit;color:inherit}
+input[type=number],select{width:100%;min-height:48px;padding:8px 12px;border:1px solid var(--line);border-radius:2px;background:var(--field);box-shadow:inset 0 2px 6px rgba(0,0,0,.45)}
+input[type=number]{font:700 1.6rem var(--serif);font-variant-numeric:tabular-nums;-moz-appearance:textfield;appearance:textfield}
+input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.field+.field{margin-top:14px}
+.toggle{width:100%;min-height:48px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 12px;border:1px solid var(--line);border-radius:2px;background:var(--field);box-shadow:inset 0 2px 6px rgba(0,0,0,.45);cursor:pointer;text-align:left}
+.toggle .sum{color:var(--muted);font-size:.9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.toggle .cnt{color:var(--gold);font-weight:700}
+.toggle::after{content:"";width:9px;height:9px;flex:none;border:solid var(--gold);border-width:0 2px 2px 0;transform:rotate(45deg) translateY(-3px);transition:transform .2s}
+.toggle[aria-expanded=true]::after{transform:rotate(-135deg)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chips[hidden]{display:none}
+.chips label{margin:0;position:relative}
+.chips input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.chips span{display:block;padding:8px 14px;min-height:40px;border:1px solid var(--line);border-radius:2px;background:var(--field);font-size:.95rem}
+.chips input:checked+span{background:var(--accent);border-color:var(--gold);color:var(--accent-ink);box-shadow:0 0 12px var(--glow)}
+.chips input:focus-visible+span{outline:3px solid var(--gold);outline-offset:2px}
+.out h2{margin:0;padding:16px 20px;font:700 1.15rem var(--serif);letter-spacing:.04em;border-bottom:1px solid var(--gold)}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:14px 20px;border-bottom:1px dashed var(--line)}
+.row:last-child{border-bottom:0}
+.row .c{font-weight:700}
+.row .v{text-align:right;font:800 clamp(1.3rem,4.5vw,1.8rem)/1.2 var(--rune);font-variant-numeric:tabular-nums;word-break:break-all;color:var(--gold)}
+.empty{padding:20px;color:var(--muted)}
+.empty.err{color:var(--err)}
+footer{margin-top:22px;color:var(--muted);font-size:.85rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px}
+footer a{color:inherit}
+.theme{display:inline-flex;border:1px solid var(--gold);border-radius:2px;overflow:hidden}
+.theme button{min-height:36px;padding:2px 16px;border:0;background:transparent;cursor:pointer;color:var(--muted)}
+.theme button[aria-pressed=true]{background:var(--accent);color:var(--accent-ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>多幣別匯率計算機</h1>
+    <div class="stamp" id="stamp">讀取匯率中…</div>
+  </header>
+
+  <div class="grid">
+    <section class="card side" aria-label="輸入">
+      <div class="field">
+        <label for="from">幣別 A</label>
+        <select id="from"></select>
+      </div>
+      <div class="field">
+        <label for="amt">金額</label>
+        <input id="amt" type="number" inputmode="decimal" min="0" step="any" value="1000">
+      </div>
+      <div class="field">
+        <div class="lbl" id="tl">換算成(可多選)</div>
+        <button type="button" class="toggle" id="toggle" aria-expanded="false" aria-controls="chips" aria-labelledby="tl tsum">
+          <span class="sum" id="tsum"></span>
+        </button>
+        <div class="chips" id="chips" role="group" aria-labelledby="tl" hidden></div>
+      </div>
+    </section>
+
+    <section class="card out" aria-label="換算結果" aria-live="polite">
+      <h2 id="outTitle">換算結果</h2>
+      <div id="list"></div>
+    </section>
+  </div>
+
+  <footer>
+    <span>匯率來源:<a href="https://rate.bot.com.tw/xrt" target="_blank" rel="noopener">臺灣銀行</a>(現金匯率),僅供參考。</span>
+    <span>作者:Paman</span>
+    <div class="theme" role="group" aria-label="佈景主題">
+      <button type="button" data-theme="light" aria-pressed="false">淺色</button>
+      <button type="button" data-theme="dark" aria-pressed="false">深色</button>
+    </div>
+  </footer>
+</div>
+
+<script>
+const NAMES = {TWD:"新臺幣",USD:"美金",HKD:"港幣",GBP:"英鎊",AUD:"澳幣",CAD:"加拿大幣",SGD:"新加坡幣",CHF:"瑞士法郎",JPY:"日圓",ZAR:"南非幣",SEK:"瑞典幣",NZD:"紐西蘭幣",THB:"泰幣",PHP:"菲律賓比索",IDR:"印尼盾",EUR:"歐元",KRW:"韓元",VND:"越南盾",MYR:"馬來幣",CNY:"人民幣"};
+const $ = id => document.getElementById(id);
+const S = {rates:{}, from:"TWD", picked:new Set(["USD","JPY","CNY"])};
+const nf = (n, d) => n.toLocaleString("zh-TW", {minimumFractionDigits:d, maximumFractionDigits:d});
+const digits = c => ["JPY","KRW","VND","IDR"].includes(c) ? 0 : 2;
+const store = {
+  get(k){ try { return JSON.parse(localStorage.getItem(k) || "null"); } catch { return null; } },
+  set(k,v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+};
+
+// 只用現金匯率:A 換成新臺幣用「買入」,新臺幣換成目標幣別用「賣出」
+const buy  = c => c === "TWD" ? 1 : S.rates[c].cashBuy;
+const sell = c => c === "TWD" ? 1 : S.rates[c].cashSell;
+const targets = () => [...S.picked].filter(c => c !== S.from && (c === "TWD" || S.rates[c]));
+
+function renderResults(){
+  const amt = parseFloat($("amt").value), list = targets();
+  $("outTitle").textContent = `${NAMES[S.from]}(${S.from}) → ${list.length} 種幣別`;
+  $("tsum").innerHTML = `<span class="cnt">已選 ${list.length} 種</span> ${list.map(c => NAMES[c]).join("、")}`;
+  if (!list.length) { $("list").innerHTML = '<div class="empty">請展開「換算成」,至少選一種幣別。</div>'; return; }
+  if (!(amt >= 0)) { $("list").innerHTML = '<div class="empty">請輸入金額。</div>'; return; }
+  $("list").innerHTML = list.map(c => {
+    const unit = buy(S.from) / sell(c);
+    return `<div class="row"><div class="c">${NAMES[c]}(${c})</div><div class="v">${nf(amt * unit, digits(c))}</div></div>`;
+  }).join("");
+}
+
+function renderChips(){
+  const order = ["TWD", ...Object.keys(S.rates)].filter(c => c !== S.from);
+  $("chips").innerHTML = order.map(c =>
+    `<label><input type="checkbox" value="${c}" ${S.picked.has(c)?"checked":""}><span>${NAMES[c]||""} ${c}</span></label>`).join("");
+}
+
+function save(){ store.set("fx", {from:S.from, picked:[...S.picked], amt:$("amt").value}); }
+
+function setTheme(t){
+  document.documentElement.dataset.theme = t;
+  document.querySelectorAll(".theme button").forEach(b => b.setAttribute("aria-pressed", b.dataset.theme === t));
+  try { localStorage.setItem("theme", t); } catch {}
+}
+document.querySelectorAll(".theme button").forEach(b => b.addEventListener("click", () => setTheme(b.dataset.theme)));
+setTheme(document.documentElement.dataset.theme);
+
+$("toggle").addEventListener("click", () => {
+  const open = $("toggle").getAttribute("aria-expanded") === "true";
+  $("toggle").setAttribute("aria-expanded", !open);
+  $("chips").hidden = open;
+});
+
+async function init(){
+  try {
+    const res = await fetch("rates.json", {cache:"no-cache"});
+    if (!res.ok) throw new Error(res.status);
+    const d = await res.json();
+    // 只保留有現金買入與賣出價的幣別
+    for (const [c, r] of Object.entries(d.rates || {})) if (r.cashBuy && r.cashSell) S.rates[c] = r;
+    if (!Object.keys(S.rates).length) throw new Error("empty");
+    const t = d.updatedAt ? new Date(d.updatedAt) : null;
+    $("stamp").textContent = t ? "更新於 " + t.toLocaleString("zh-TW", {timeZone:"Asia/Taipei", hour12:false, dateStyle:"medium", timeStyle:"short"}) + "(臺北時間)" : "";
+    if (d.sample) $("stamp").textContent = "測試資料,非真實匯率";
+  } catch (e) {
+    $("stamp").textContent = "無法取得匯率";
+    $("list").innerHTML = '<div class="empty err">目前沒有匯率資料。請到 GitHub 的 Actions 頁面手動執行「Update rates」,再重新整理本頁。</div>';
+    return;
+  }
+  const all = ["TWD", ...Object.keys(S.rates)];
+  const saved = store.get("fx");
+  if (saved) {
+    if (all.includes(saved.from)) S.from = saved.from;
+    S.picked = new Set(saved.picked.filter(c => all.includes(c)));
+    if (saved.amt) $("amt").value = saved.amt;
+  } else {
+    S.picked = new Set([...S.picked].filter(c => all.includes(c)));
+  }
+  $("from").innerHTML = all.map(c => `<option value="${c}">${NAMES[c]||""} ${c}</option>`).join("");
+  $("from").value = S.from;
+  renderChips(); renderResults();
+
+  $("amt").addEventListener("input", () => { renderResults(); save(); });
+  $("from").addEventListener("change", e => { S.from = e.target.value; renderChips(); renderResults(); save(); });
+  $("chips").addEventListener("change", e => {
+    e.target.checked ? S.picked.add(e.target.value) : S.picked.delete(e.target.value);
+    renderResults(); save();
+  });
+}
+init();
+</script>
+</body>
+</html>
