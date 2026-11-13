@@ -8,121 +8,121 @@
     "termsUrl": "https://app.haotool.org/ratewise/open-data/#api-terms",
     "requiredText": "資料整理：匯率好工具 RateWise（https://app.haotool.org/ratewise/）"
   },
-  "updatedAt": "2026-11-12T23:31:00.000Z",
+  "updatedAt": "2026-11-13T03:35:00.000Z",
   "rates": {
     "USD": {
-      "cashBuy": 32.485,
+      "cashBuy": 32.46,
       "spotBuy": 32.81,
-      "cashSell": 33.155,
-      "spotSell": 32.96
+      "cashSell": 33.13,
+      "spotSell": 32.91
     },
     "HKD": {
-      "cashBuy": 4.037,
+      "cashBuy": 4.032,
       "spotBuy": 4.158,
-      "cashSell": 4.241,
-      "spotSell": 4.228
+      "cashSell": 4.236,
+      "spotSell": 4.218
     },
     "GBP": {
-      "cashBuy": 42.34,
-      "spotBuy": 43.235,
-      "cashSell": 44.46,
-      "spotSell": 43.865
+      "cashBuy": 42.29,
+      "spotBuy": 43.3,
+      "cashSell": 44.41,
+      "spotSell": 43.7
     },
     "AUD": {
-      "cashBuy": 22,
-      "spotBuy": 22.215,
-      "cashSell": 22.78,
-      "spotSell": 22.56
+      "cashBuy": 21.98,
+      "spotBuy": 22.27,
+      "cashSell": 22.76,
+      "spotSell": 22.47
     },
     "CAD": {
-      "cashBuy": 22.58,
-      "spotBuy": 22.91,
-      "cashSell": 23.49,
-      "spotSell": 23.24
+      "cashBuy": 22.55,
+      "spotBuy": 22.95,
+      "cashSell": 23.46,
+      "spotSell": 23.15
     },
     "SGD": {
-      "cashBuy": 24.98,
-      "spotBuy": 25.45,
-      "cashSell": 25.89,
-      "spotSell": 25.67
+      "cashBuy": 24.97,
+      "spotBuy": 25.46,
+      "cashSell": 25.88,
+      "spotSell": 25.64
     },
     "CHF": {
-      "cashBuy": 38.55,
-      "spotBuy": 39.16,
-      "cashSell": 39.75,
-      "spotSell": 39.55
+      "cashBuy": 38.52,
+      "spotBuy": 39.2,
+      "cashSell": 39.72,
+      "spotSell": 39.45
     },
     "JPY": {
-      "cashBuy": 0.1965,
-      "spotBuy": 0.2033,
-      "cashSell": 0.2093,
-      "spotSell": 0.2083
+      "cashBuy": 0.1962,
+      "spotBuy": 0.2035,
+      "cashSell": 0.209,
+      "spotSell": 0.2075
     },
     "ZAR": {
       "cashBuy": null,
-      "spotBuy": 1.918,
+      "spotBuy": 1.921,
       "cashSell": null,
-      "spotSell": 2.008
+      "spotSell": 2.001
     },
     "SEK": {
       "cashBuy": null,
       "spotBuy": 3.23,
       "cashSell": null,
-      "spotSell": 3.35
+      "spotSell": 3.33
     },
     "NZD": {
-      "cashBuy": 17.76,
-      "spotBuy": 18.09,
-      "cashSell": 18.61,
-      "spotSell": 18.39
+      "cashBuy": 17.75,
+      "spotBuy": 18.13,
+      "cashSell": 18.6,
+      "spotSell": 18.33
     },
     "THB": {
-      "cashBuy": 0.8412,
-      "spotBuy": 0.9516,
-      "cashSell": 1.0312,
-      "spotSell": 0.9976
+      "cashBuy": 0.8422,
+      "spotBuy": 0.9556,
+      "cashSell": 1.0322,
+      "spotSell": 0.9956
     },
     "PHP": {
-      "cashBuy": 0.4495,
+      "cashBuy": 0.4501,
       "spotBuy": null,
-      "cashSell": 0.5815,
+      "cashSell": 0.5821,
       "spotSell": null
     },
     "IDR": {
-      "cashBuy": 0.00148,
+      "cashBuy": 0.00143,
       "spotBuy": null,
-      "cashSell": 0.00218,
+      "cashSell": 0.00213,
       "spotSell": null
     },
     "EUR": {
-      "cashBuy": 35.54,
-      "spotBuy": 36.055,
-      "cashSell": 36.88,
-      "spotSell": 36.655
+      "cashBuy": 35.53,
+      "spotBuy": 36.15,
+      "cashSell": 36.87,
+      "spotSell": 36.55
     },
     "KRW": {
-      "cashBuy": 0.0229,
+      "cashBuy": 0.02293,
       "spotBuy": null,
-      "cashSell": 0.0268,
+      "cashSell": 0.02683,
       "spotSell": null
     },
     "VND": {
-      "cashBuy": 0.00104,
+      "cashBuy": 0.00106,
       "spotBuy": null,
-      "cashSell": 0.00145,
+      "cashSell": 0.00147,
       "spotSell": null
     },
     "MYR": {
-      "cashBuy": 7.038,
+      "cashBuy": 7.019,
       "spotBuy": null,
-      "cashSell": 8.563,
+      "cashSell": 8.544,
       "spotSell": null
     },
     "CNY": {
-      "cashBuy": 4.832,
+      "cashBuy": 4.827,
       "spotBuy": 4.899,
-      "cashSell": 4.994,
-      "spotSell": 4.959
+      "cashSell": 4.989,
+      "spotSell": 4.949
     }
   }
 }
