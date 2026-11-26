@@ -8,7 +8,7 @@
     "termsUrl": "https://app.haotool.org/ratewise/open-data/#api-terms",
     "requiredText": "資料整理：匯率好工具 RateWise（https://app.haotool.org/ratewise/）"
   },
-  "updatedAt": "2026-11-26T14:02:00.000Z",
+  "updatedAt": "2026-11-26T22:54:00.000Z",
   "rates": {
     "USD": {
       "cashBuy": 32.555,
@@ -17,28 +17,28 @@
       "spotSell": 33.03
     },
     "HKD": {
-      "cashBuy": 4.049,
-      "spotBuy": 4.17,
-      "cashSell": 4.253,
-      "spotSell": 4.24
+      "cashBuy": 4.05,
+      "spotBuy": 4.171,
+      "cashSell": 4.254,
+      "spotSell": 4.241
     },
     "GBP": {
-      "cashBuy": 42.02,
-      "spotBuy": 42.915,
-      "cashSell": 44.14,
-      "spotSell": 43.545
+      "cashBuy": 42.01,
+      "spotBuy": 42.905,
+      "cashSell": 44.13,
+      "spotSell": 43.535
     },
     "AUD": {
-      "cashBuy": 21.49,
-      "spotBuy": 21.705,
-      "cashSell": 22.27,
-      "spotSell": 22.05
+      "cashBuy": 21.48,
+      "spotBuy": 21.695,
+      "cashSell": 22.26,
+      "spotSell": 22.04
     },
     "CAD": {
-      "cashBuy": 22.67,
-      "spotBuy": 23,
-      "cashSell": 23.58,
-      "spotSell": 23.33
+      "cashBuy": 22.64,
+      "spotBuy": 22.97,
+      "cashSell": 23.55,
+      "spotSell": 23.3
     },
     "SGD": {
       "cashBuy": 24.96,
@@ -47,45 +47,45 @@
       "spotSell": 25.65
     },
     "CHF": {
-      "cashBuy": 38.71,
-      "spotBuy": 39.32,
-      "cashSell": 39.91,
-      "spotSell": 39.71
+      "cashBuy": 38.69,
+      "spotBuy": 39.3,
+      "cashSell": 39.89,
+      "spotSell": 39.69
     },
     "JPY": {
-      "cashBuy": 0.1978,
-      "spotBuy": 0.2046,
-      "cashSell": 0.2106,
-      "spotSell": 0.2096
+      "cashBuy": 0.1977,
+      "spotBuy": 0.2045,
+      "cashSell": 0.2105,
+      "spotSell": 0.2095
     },
     "ZAR": {
       "cashBuy": null,
-      "spotBuy": 1.835,
+      "spotBuy": 1.832,
       "cashSell": null,
-      "spotSell": 1.925
+      "spotSell": 1.922
     },
     "SEK": {
       "cashBuy": null,
-      "spotBuy": 3.18,
+      "spotBuy": 3.17,
       "cashSell": null,
-      "spotSell": 3.3
+      "spotSell": 3.29
     },
     "NZD": {
-      "cashBuy": 17.59,
-      "spotBuy": 17.92,
-      "cashSell": 18.44,
-      "spotSell": 18.22
+      "cashBuy": 17.56,
+      "spotBuy": 17.89,
+      "cashSell": 18.41,
+      "spotSell": 18.19
     },
     "THB": {
-      "cashBuy": 0.8401,
-      "spotBuy": 0.9505,
-      "cashSell": 1.0301,
-      "spotSell": 0.9965
+      "cashBuy": 0.84,
+      "spotBuy": 0.9504,
+      "cashSell": 1.03,
+      "spotSell": 0.9964
     },
     "PHP": {
-      "cashBuy": 0.4513,
+      "cashBuy": 0.4514,
       "spotBuy": null,
-      "cashSell": 0.5833,
+      "cashSell": 0.5834,
       "spotSell": null
     },
     "IDR": {
@@ -95,15 +95,15 @@
       "spotSell": null
     },
     "EUR": {
-      "cashBuy": 35.4,
-      "spotBuy": 35.915,
-      "cashSell": 36.74,
-      "spotSell": 36.515
+      "cashBuy": 35.34,
+      "spotBuy": 35.855,
+      "cashSell": 36.68,
+      "spotSell": 36.455
     },
     "KRW": {
-      "cashBuy": 0.02279,
+      "cashBuy": 0.0228,
       "spotBuy": null,
-      "cashSell": 0.02669,
+      "cashSell": 0.0267,
       "spotSell": null
     },
     "VND": {
@@ -113,9 +113,9 @@
       "spotSell": null
     },
     "MYR": {
-      "cashBuy": 6.98,
+      "cashBuy": 6.978,
       "spotBuy": null,
-      "cashSell": 8.505,
+      "cashSell": 8.503,
       "spotSell": null
     },
     "CNY": {
